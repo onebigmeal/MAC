@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cbvnws21jha45"]
+[gd_scene load_steps=20 format=3 uid="uid://cbvnws21jha45"]
 
 [ext_resource type="Script" path="res://6.gd" id="2_sa5dh"]
 [ext_resource type="Script" path="res://playermovement.gd" id="2_ye60e"]
@@ -20,22 +20,24 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eb6pu"]
 albedo_color = Color(0.486275, 0.988235, 0, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_g1hl1"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_eprg3"]
-points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_aogy2"]
-radius = 0.3
-
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nsb4f"]
 friction = 0.0
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g1hl1"]
+
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0efni"]
-points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grx5o"]
 albedo_color = Color(0.928299, 0.448908, 0.52497, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_iw80a"]
+absorbent = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_pv0qk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tvnll"]
+size = Vector3(33, 0.8, 4.8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7rjc3"]
 size = Vector3(3, 0.5, 3)
@@ -72,26 +74,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("firstplayer/CollisionShape3D:position")
+tracks/2/path = NodePath("firstplayer/CollisionShape3D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 1.30042, 0)]
+"values": [Vector3(1, 1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("firstplayer/CollisionShape3D:scale")
+tracks/3/path = NodePath("firstplayer/CollisionShape3D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(1, 1, 1)]
+"values": [Vector3(0, 1.30042, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -116,18 +118,6 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(1, 1, 1)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterBody3D/RigidBody3D/CrouchCheck:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 2.0346, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_0h2cp"]
@@ -160,26 +150,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("firstplayer/CollisionShape3D:position")
+tracks/2/path = NodePath("firstplayer/CollisionShape3D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.233333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 1.30042, 0), Vector3(0, 0.7, 0)]
+"values": [Vector3(1, 1, 1), Vector3(1, 0.5, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("firstplayer/CollisionShape3D:scale")
+tracks/3/path = NodePath("firstplayer/CollisionShape3D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.233333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1, 0.5, 1)]
+"values": [Vector3(0, 1.30042, 0), Vector3(0, 0.7, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -204,18 +194,6 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(1, 1, 1), Vector3(1, 0.5, 1)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterBody3D/RigidBody3D/CrouchCheck:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.233333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 2.0346, 0), Vector3(0, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bk5mk"]
@@ -277,29 +255,8 @@ collision_layer = 65535
 size = Vector3(65.768, 0.343994, 22.641)
 material = SubResource("StandardMaterial3D_eb6pu")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476412, -3.51332)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30042, 0)
-mesh = SubResource("CapsuleMesh_g1hl1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("ConvexPolygonShape3D_eprg3")
-
-[node name="CoyoteTimer" type="Timer" parent="CharacterBody3D"]
-wait_time = 0.15
-one_shot = true
-
-[node name="RigidBody3D" type="RigidBody3D" parent="CharacterBody3D"]
-
-[node name="CrouchCheck" type="CollisionShape3D" parent="CharacterBody3D/RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0346, 0)
-shape = SubResource("SphereShape3D_aogy2")
-
 [node name="firstplayer" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2508, 0.470425, -0.00660539)
-collision_layer = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2857, 0.470425, -0.0186999)
 physics_material_override = SubResource("PhysicsMaterial_nsb4f")
 lock_rotation = true
 script = ExtResource("2_ye60e")
@@ -351,11 +308,6 @@ transform = Transform3D(-0.0444215, 0, 0.999013, 0, 1, 0, -0.999013, 0, -0.04442
 use_collision = true
 size = Vector3(3.58864, 6.75793, 68.1716)
 
-[node name="7" type="CSGBox3D" parent="blocks"]
-transform = Transform3D(-0.932689, 0.360681, 0, -0.360681, -0.932689, 0, 0, 0, 1, -29.3087, 1.22862, -11.5117)
-use_collision = true
-size = Vector3(17.7816, 3.64517, 3.03436)
-
 [node name="8" type="CSGBox3D" parent="blocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.3753, 0.724147, -2.09658)
 use_collision = true
@@ -370,6 +322,28 @@ script = ExtResource("2_sa5dh")
 
 [node name="Area3D" type="Area3D" parent="blocks/rrr"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0827293, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5633, 0, -11.0776)
+collision_layer = 255
+collision_mask = 255
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_iw80a")
+custom_integrator = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="blocks/RigidBody3D"]
+transform = Transform3D(32.995, -0.162195, 0, 6.42613, 0.832793, 0, 0, 0, 4.8156, 0, 0, 0)
+mesh = SubResource("BoxMesh_pv0qk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blocks/RigidBody3D"]
+transform = Transform3D(0.981627, -0.190809, 0, 0.190809, 0.981627, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_tvnll")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.301375, 0)
@@ -472,6 +446,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889945, -0.0274236)
 
 [node name="upboy" type="RayCast3D" parent="secondplayer"]
 transform = Transform3D(-0.999999, 0.00116938, 0, -0.00116938, -0.999999, 0, 0, 0, 1, -0.0438805, 1.42183, 0.00504364)
-
-[connection signal="body_entered" from="CharacterBody3D/RigidBody3D" to="firstplayer" method="_on_rigid_body_3d_body_entered"]
-[connection signal="body_exited" from="CharacterBody3D/RigidBody3D" to="firstplayer" method="_on_rigid_body_3d_body_exited"]

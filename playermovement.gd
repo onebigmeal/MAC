@@ -1,35 +1,28 @@
 extends RigidBody3D
 
 const CROUCH_SPEED = 20.0
-const WALK_SPEED = 50.0
-const MAX_WALK_SPEED = 10.0
+const WALK_SPEED = 40.0
+const SPRINT_BONUS = 1.5
+const MAX_WALK_SPEED = 15.0
+const MAX_SPRINT_SPEED = 20.0
+const SLIDE_POINT = 10.0 # flashpoint ifykyk
 const AIR_SPEED = 1
-const SPRINT_SPEED = 80.0
 const MOUSE_SENSITIVITY = 0.004
 const CONTROLLER_SENSITIVITY = 0.03
-const BOB_FREQ = 2.0
-const BOB_AMP = 0.0
 const JUMP_HEIGHT = 7.0
-var t_bob = 0.0
-const BASE_FOV = 75.0
-const FOV_CHANGE = 1
-var friction = 0
 var crouch = 0
-var was_on_floor 
 var direction = Vector3()
 var velocity = Vector3()
 var is_on_floor = true
-var front_collided = false
-var left_collided = false
-var right_collided = false
-var back_collided = false
 var is_roofed = false
 var thirdperson = false
+var sprint_toggle = false
 var jump_vector = Vector3(-100,-JUMP_HEIGHT,-100)
 var crouch_check = false
 var slide_check = false
 var fixed_direction = 0
 var lock_direction = false
+var speed_input = 0.0
 var test3 = Vector3.ZERO
 var last_input = Vector3.ZERO
 var headmovement = Vector3()
@@ -49,6 +42,8 @@ var headmovement = Vector3()
 @onready var label3 = $"../GUI/Linear_x"
 @onready var label4 = $"../GUI/Linear_v"
 # Called when the node enters the scene tree for the first time.
+# crouch: 1 = start crouch 0 = not animating -1 = end crouch
+
 func _ready() -> void:
 	self.set_contact_monitor(true)
 	self.set_max_contacts_reported(999)
@@ -97,19 +92,69 @@ func _uncrouch_collision() -> bool:
 		return true
 	return false
 
+func _crouch() -> void:
+	$"../AnimationPlayer".play("crouch")
+	label.text = "crouch down"
+	linear_damp = 10
+	linear_velocity = Vector3(0,0,0)
+
+func _uncrouch():
+	$"../AnimationPlayer".play_backwards("crouch")
+	label.text = "crouch up"
+	set_gravity_scale(1)
+	linear_damp = 5
+	
+func _slide():
+	$"../AnimationPlayer".play("crouch")
+	label.text = "slide down"
+func _unslide():
+	$"../AnimationPlayer".play_backwards("crouch")
+	label.text = "slide up"
+	
 func _process(delta: float) -> void:
+	# pre-input loop cycle init processes
 	label2.text = "Total absolute velocity= " + str(abs(linear_velocity.x)+abs(linear_velocity.z))
 	var input:= Vector3.ZERO
-# does not work
-	if not slide_check:
-		input.x = Input.get_axis("left", "right")
-		input.z = Input.get_axis("forward", "back")
-		last_input = input
-		linear_damp = 2
-	if slide_check:
-		linear_damp = 0.1
-		if not lock_direction:
+	var v = sqrt(pow(linear_velocity.x,2)+pow(linear_velocity.y,2)+pow(linear_velocity.z,2))	
+	is_on_floor = _touching_floor()
+	is_roofed = _uncrouch_collision()
+	
+	#all input below
+	if Input.is_action_just_pressed("sprint"):
+		sprint_toggle = true
+	elif Input.is_action_just_released("sprint"):
+		sprint_toggle = false
+	if Input.is_action_just_pressed("crouch") and not crouch_check:
+		if v<SLIDE_POINT:
+			_crouch()
+			crouch_check = true
+		else:
 			fixed_direction = head.transform.basis
+			slide_check = true
+			_slide()
+			
+	elif Input.is_action_just_released("crouch") and not is_roofed:
+		if slide_check:
+			slide_check = false
+			_unslide()
+		if crouch_check:
+			crouch_check = false
+			_uncrouch()
+			
+	if Input.is_action_just_pressed("thirdperson"):
+		if not thirdperson:
+			thirdperson = true
+			othercamera.current = true
+		else:
+			thirdperson = false
+			camera.current = true
+			
+	# main movement processes
+
+	
+	if slide_check:
+		linear_damp = 1
+		if not lock_direction:
 			#print((fixed_direction * Vector3(10, 0, 10)).normalized())
 			if abs(head.transform.basis.x) > abs(head.transform.basis.z):
 				apply_central_impulse(last_input * fixed_direction * 3.5)
@@ -118,62 +163,32 @@ func _process(delta: float) -> void:
 			label3.text = str(fixed_direction)	
 		input = (fixed_direction * input).normalized()
 		lock_direction = true
+		
 	else:
-		lock_direction = false
-		input = (head.transform.basis * input).normalized()
-	var v = sqrt(pow(linear_velocity.x,2)+pow(linear_velocity.y,2)+pow(linear_velocity.z,2))	
-	is_on_floor = _touching_floor()
-	is_roofed = _uncrouch_collision()
-	if Input.is_action_just_pressed("jump") and is_on_floor:
-		apply_central_impulse(Vector3(input.x,1.0*JUMP_HEIGHT,input.z))
-	elif abs(v) < MAX_WALK_SPEED:
-		if not is_on_floor:
-			if crouch == -1:
-				linear_damp = 0.5
-			set_inertia(jump_vector)
-			set_gravity_scale(1.5)
-			apply_central_impulse(input * AIR_SPEED * delta)
-		else:
-			linear_damp = 5
-			if crouch:
-				apply_central_impulse(input*CROUCH_SPEED*delta)
-			else:
-				apply_central_impulse(input*WALK_SPEED*delta)
-	else: 
-		pass
-	#crouching below
-	if Input.is_action_just_pressed("crouch"):
-		crouch = 1
-	elif Input.is_action_just_released("crouch"):
-		crouch = -1
-	elif crouch == 1 and abs(linear_velocity.x)+abs(linear_velocity.z)<9 and not slide_check: 
-		crouch = 0
-		$"../AnimationPlayer".play("crouch")
-		label.text = "crouch down"
-		linear_damp = 10
-		linear_velocity = Vector3(0,0,0)
-		crouch_check = true
-	if crouch == -1 and not is_roofed and abs(linear_velocity.x)+abs(linear_velocity.z)<9 and not slide_check:
-		crouch = 0
-		$"../AnimationPlayer".play_backwards("crouch")
-		label.text = "crouch up"
-		set_gravity_scale(1)
+		input.x = Input.get_axis("left", "right")
+		input.z = Input.get_axis("forward", "back")
 		linear_damp = 5
-		crouch_check = false
-	elif crouch == 1 and abs(linear_velocity.x)+abs(linear_velocity.z)>9 and not crouch_check: 
-		crouch = 0
-		slide_check = true
-		$"../AnimationPlayer".play("crouch")
-		label.text = "slide down"
-	elif crouch == -1 and not is_roofed and not crouch_check:
-		crouch = 0
-		slide_check = false
-		$"../AnimationPlayer".play_backwards("crouch")
-		label.text = "slide up"
-	if Input.is_action_just_pressed("thirdperson"):
-		if not thirdperson:
-			thirdperson = true
-			othercamera.current = true
+		input = (head.transform.basis * input).normalized()
+	
+	if Input.is_action_just_pressed("jump") and is_on_floor:
+		apply_central_impulse(Vector3(input.x,JUMP_HEIGHT,input.z))
+	elif abs(v) < (MAX_WALK_SPEED if not sprint_toggle else MAX_SPRINT_SPEED):
+		speed_input = WALK_SPEED
+		
+		if not is_on_floor:
+			linear_damp = 0.1
+			speed_input = AIR_SPEED
+			set_inertia(jump_vector)
+			set_gravity_scale(2)
+			
 		else:
-			thirdperson = false
-			camera.current = true
+			if crouch_check:
+				linear_damp = 10
+				speed_input = CROUCH_SPEED
+			if sprint_toggle:
+				speed_input *= SPRINT_BONUS
+		apply_central_impulse(input*speed_input*delta)
+	
+	# wrap up processes
+	
+	last_input = input
