@@ -1,17 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cbvnws21jha45"]
+[gd_scene load_steps=23 format=3 uid="uid://cbvnws21jha45"]
 
-[ext_resource type="Script" path="res://secondplayer.gd" id="2_s2gfe"]
+[ext_resource type="Texture2D" uid="uid://bbipo2oa3urmv" path="res://map.png" id="1_a6ggr"]
 [ext_resource type="Script" path="res://6.gd" id="2_sa5dh"]
 [ext_resource type="Script" path="res://playermovement.gd" id="2_ye60e"]
 [ext_resource type="MeshLibrary" uid="uid://bvwu0qo5uka6y" path="res://builds/blocks.tres" id="4_whph2"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nsb4f"]
-friction = 0.0
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_g1hl1"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0efni"]
-points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_diidr"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -26,8 +18,19 @@ sky = SubResource("Sky_bry4a")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thvij"]
+albedo_texture = ExtResource("1_a6ggr")
+
+[sub_resource type="ImageTexture" id="ImageTexture_fe24h"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_2e5eh"]
+base_texture = SubResource("ImageTexture_fe24h")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eb6pu"]
-albedo_color = Color(0.486275, 0.988235, 0, 1)
+albedo_color = Color(0.803315, 0.862597, 0.846039, 1)
+albedo_texture = SubResource("MeshTexture_2e5eh")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g1hl1"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_eprg3"]
 points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
@@ -49,7 +52,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/MeshInstance3D:scale")
+tracks/0/path = NodePath("firstplayer/MeshInstance3D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -61,7 +64,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/MeshInstance3D:position")
+tracks/1/path = NodePath("firstplayer/MeshInstance3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -73,7 +76,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/CollisionShape3D:position")
+tracks/2/path = NodePath("firstplayer/CollisionShape3D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -85,7 +88,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/CollisionShape3D:scale")
+tracks/3/path = NodePath("firstplayer/CollisionShape3D:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -97,7 +100,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/Head:position")
+tracks/4/path = NodePath("firstplayer/Head:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -109,7 +112,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/Head:scale")
+tracks/5/path = NodePath("firstplayer/Head:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -137,7 +140,7 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/MeshInstance3D:scale")
+tracks/0/path = NodePath("firstplayer/MeshInstance3D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -149,7 +152,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/MeshInstance3D:position")
+tracks/1/path = NodePath("firstplayer/MeshInstance3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -161,7 +164,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/CollisionShape3D:position")
+tracks/2/path = NodePath("firstplayer/CollisionShape3D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -173,7 +176,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/CollisionShape3D:scale")
+tracks/3/path = NodePath("firstplayer/CollisionShape3D:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -185,7 +188,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/Head:position")
+tracks/4/path = NodePath("firstplayer/Head:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -197,7 +200,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/Head:scale")
+tracks/5/path = NodePath("firstplayer/Head:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -225,10 +228,17 @@ _data = {
 "crouch": SubResource("Animation_0h2cp")
 }
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nsb4f"]
+friction = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0efni"]
+points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+
 [node name="World" type="Node3D"]
 transform = Transform3D(1.00117, 0, 0, 0, 1.00117, 0, 0, 0, 1.00117, 0, 0, 0)
 
 [node name="splitscreen" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -254,44 +264,7 @@ size_flags_horizontal = 3
 [node name="SubViewport" type="SubViewport" parent="splitscreen/HBoxContainer/SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(573, 653)
-render_target_update_mode = 4
-
-[node name="firstplayer" type="RigidBody3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.8529, 0.592942, 27.5503)
-collision_layer = 2
-physics_material_override = SubResource("PhysicsMaterial_nsb4f")
-lock_rotation = true
-script = ExtResource("2_ye60e")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
-mesh = SubResource("CapsuleMesh_g1hl1")
-skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30042, 0)
-shape = SubResource("ConvexPolygonShape3D_0efni")
-
-[node name="Head" type="Node3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.77355, 0)
-
-[node name="Camera3D" type="Camera3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/Head"]
-
-[node name="pivot" type="Node3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/Head"]
-
-[node name="FOVcamera" type="Camera3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer/Head/pivot"]
-transform = Transform3D(1, 0, 0, 0, 0.968583, 0.24869, 0, -0.24869, 0.968583, 0, 1, 2)
-fov = 79.1557
-
-[node name="CoyoteTimer" type="Timer" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer"]
-wait_time = 0.15
-one_shot = true
-
-[node name="RayCast3D" type="RayCast3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889945, -0.0274236)
-
-[node name="upboy" type="RayCast3D" parent="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer"]
-transform = Transform3D(-0.999999, 0.00116938, 0, -0.00116938, -0.999999, 0, 0, 0, 1, -0.0438805, 1.42183, 0.00504364)
+render_target_update_mode = 0
 
 [node name="SubViewportContainer2" type="SubViewportContainer" parent="splitscreen/HBoxContainer"]
 layout_mode = 2
@@ -300,44 +273,7 @@ size_flags_horizontal = 8
 [node name="SubViewport" type="SubViewport" parent="splitscreen/HBoxContainer/SubViewportContainer2"]
 handle_input_locally = false
 size = Vector2i(574, 653)
-render_target_update_mode = 4
-
-[node name="secondplayer" type="RigidBody3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66588, 0.470425, 18.3617)
-collision_layer = 2
-physics_material_override = SubResource("PhysicsMaterial_nsb4f")
-lock_rotation = true
-script = ExtResource("2_s2gfe")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
-mesh = SubResource("CapsuleMesh_g1hl1")
-skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30042, 0)
-shape = SubResource("ConvexPolygonShape3D_0efni")
-
-[node name="Head" type="Node3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.77355, 0)
-
-[node name="Camera3D2" type="Camera3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer/Head"]
-
-[node name="pivot" type="Node3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer/Head"]
-
-[node name="FOVcamera2" type="Camera3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer/Head/pivot"]
-transform = Transform3D(1, 0, 0, 0, 0.968583, 0.24869, 0, -0.24869, 0.968583, 0, 1, 2)
-fov = 79.1557
-
-[node name="CoyoteTimer" type="Timer" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer"]
-wait_time = 0.15
-one_shot = true
-
-[node name="RayCast3D" type="RayCast3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889945, -0.0274236)
-
-[node name="upboy" type="RayCast3D" parent="splitscreen/HBoxContainer/SubViewportContainer2/SubViewport/secondplayer"]
-transform = Transform3D(-0.999999, 0.00116938, 0, -0.00116938, -0.999999, 0, 0, 0, 1, -0.0438805, 1.42183, 0.00504364)
+render_target_update_mode = 0
 
 [node name="Line2D" type="Line2D" parent="splitscreen"]
 position = Vector2(591.889, -0.00608826)
@@ -353,10 +289,11 @@ shadow_enabled = true
 environment = SubResource("Environment_6w87g")
 
 [node name="floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.999868, 0.0162483, 0, -0.0162483, 0.999868, -23.9802, -0.515534, -6.44854)
+transform = Transform3D(0.999983, 0, 0, 0, 0.999868, 0.0162483, 0, -0.0162483, 0.999868, -23.9802, -1.28692, -53.9173)
+material_override = SubResource("StandardMaterial3D_thvij")
 use_collision = true
 collision_layer = 65535
-size = Vector3(65.768, 0.343994, 22.641)
+size = Vector3(65.768, 0.343994, 117.591)
 material = SubResource("StandardMaterial3D_eb6pu")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
@@ -484,5 +421,78 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 1, 0)
 
-[connection signal="body_entered" from="CharacterBody3D/RigidBody3D" to="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer" method="_on_rigid_body_3d_body_entered"]
-[connection signal="body_exited" from="CharacterBody3D/RigidBody3D" to="splitscreen/HBoxContainer/SubViewportContainer/SubViewport/firstplayer" method="_on_rigid_body_3d_body_exited"]
+[node name="firstplayer" type="RigidBody3D" parent="."]
+transform = Transform3D(0.998831, 0, 0, 0, 0.998831, 0, 0, 0, 0.998831, -42.8028, 0.592249, -54.9603)
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_nsb4f")
+lock_rotation = true
+script = ExtResource("2_ye60e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="firstplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+mesh = SubResource("CapsuleMesh_g1hl1")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="firstplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30042, 0)
+shape = SubResource("ConvexPolygonShape3D_0efni")
+
+[node name="Head" type="Node3D" parent="firstplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.77355, 0)
+
+[node name="Camera3D" type="Camera3D" parent="firstplayer/Head"]
+
+[node name="pivot" type="Node3D" parent="firstplayer/Head"]
+
+[node name="FOVcamera" type="Camera3D" parent="firstplayer/Head/pivot"]
+transform = Transform3D(1, 0, 0, 0, 0.968583, 0.24869, 0, -0.24869, 0.968583, 0, 1, 2)
+fov = 79.1557
+
+[node name="CoyoteTimer" type="Timer" parent="firstplayer"]
+wait_time = 0.15
+one_shot = true
+
+[node name="RayCast3D" type="RayCast3D" parent="firstplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889945, -0.0274236)
+
+[node name="upboy" type="RayCast3D" parent="firstplayer"]
+transform = Transform3D(-0.999999, 0.00116938, 0, -0.00116938, -0.999999, 0, 0, 0, 1, -0.0438805, 1.42183, 0.00504364)
+
+[node name="secondplayer" type="RigidBody3D" parent="."]
+transform = Transform3D(0.998831, 0, 0, 0, 0.998831, 0, 0, 0, 0.998831, -1.66393, 0.469875, 18.3402)
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_nsb4f")
+lock_rotation = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="secondplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+mesh = SubResource("CapsuleMesh_g1hl1")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="secondplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30042, 0)
+shape = SubResource("ConvexPolygonShape3D_0efni")
+
+[node name="Head" type="Node3D" parent="secondplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.77355, 0)
+
+[node name="Camera3D2" type="Camera3D" parent="secondplayer/Head"]
+
+[node name="pivot" type="Node3D" parent="secondplayer/Head"]
+
+[node name="FOVcamera2" type="Camera3D" parent="secondplayer/Head/pivot"]
+transform = Transform3D(1, 0, 0, 0, 0.968583, 0.24869, 0, -0.24869, 0.968583, 0, 1, 2)
+fov = 79.1557
+
+[node name="CoyoteTimer" type="Timer" parent="secondplayer"]
+wait_time = 0.15
+one_shot = true
+
+[node name="RayCast3D" type="RayCast3D" parent="secondplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889945, -0.0274236)
+
+[node name="upboy" type="RayCast3D" parent="secondplayer"]
+transform = Transform3D(-0.999999, 0.00116938, 0, -0.00116938, -0.999999, 0, 0, 0, 1, -0.0438805, 1.42183, 0.00504364)
+
+[connection signal="body_entered" from="CharacterBody3D/RigidBody3D" to="firstplayer" method="_on_rigid_body_3d_body_entered"]
+[connection signal="body_exited" from="CharacterBody3D/RigidBody3D" to="firstplayer" method="_on_rigid_body_3d_body_exited"]
