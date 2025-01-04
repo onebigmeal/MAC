@@ -53,6 +53,8 @@ var max_speed = MAX_WALK_SPEED # max speed of player, which changes when crouchi
 # 2d debugging labels
 @onready var label = $"../GUI/crouch_status"
 @onready var label2 = $"../GUI/total_linear_velocity"
+# animation player
+@onready var animationPlayer = $"../AnimationPlayer"
 # Called when the node enters the scene tree for the first time.
 
 func _ready() -> void:
@@ -117,7 +119,7 @@ func _process(delta: float) -> void:
 	# input
 	
 	if Input.is_action_just_pressed("crouch"):
-		$"../AnimationPlayer".play("crouch")
+		animationPlayer.play("crouch")
 		if abs(linear_velocity.x)+abs(linear_velocity.z)<SLIDE_POINT and not slide_check: # if the speed does not exceed a threshold and is not sliding, so you cant crouch while sliding
 			label.text = "crouch down"
 			linear_velocity = Vector3(0,0,0) # so you don't maintain you momentum, so you cannot crouch and retain sprint speed
@@ -127,7 +129,7 @@ func _process(delta: float) -> void:
 			slide_check = true
 			label.text = "slide down"
 	elif Input.is_action_just_released("crouch"): # pretty much only detect chang from 1 to 0 of button crouch
-		$"../AnimationPlayer".play_backwards("crouch")
+		animationPlayer.play_backwards("crouch")
 		if crouch_check:
 			label.text = "crouch up"
 			crouch_check = false
@@ -142,8 +144,8 @@ func _process(delta: float) -> void:
 		max_speed /= MAX_SPRINT_SPEED
 		
 	if Input.is_action_just_pressed("thirdperson"):
-		OtherCamera.current = not OtherCamera.current # if current is true, the camera with true will be the one you see through
-		camera.current = not camera.current # i just exchanged the cameras. 
+		OtherCamera.current =  camera.current # if current is true, the camera with true will be the one you see through
+		camera.current = not OtherCamera.current # i just exchanged the cameras. 
 	
 			
 	if Input.is_action_just_pressed("jump") and is_on_floor and not slide_check: # jump only when touching floor and not sliding
