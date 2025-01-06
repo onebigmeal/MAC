@@ -10,9 +10,9 @@ const MAX_SPRINT_SPEED = 2 # this is an increment
 const MAX_CROUCH_SPEED = 5.0
 const AIR_SPEED = 15.0
 const SLIDE_FRICTION = 2 # this changes linear damp
-const SLIDE_FORCE = 7.0 # extra push applied when sliding
+const SLIDE_FORCE = 20.0 # extra push applied when sliding
 const SLIDE_POINT = 11.0 # slide threshold
-const JUMP_HEIGHT = 10.0 # how high you jump
+const JUMP_HEIGHT = 20.0 # how high you jump
 const JUMP_VECTOR = Vector3(-100,-JUMP_HEIGHT,-100) # vector used to show direction of jump when player jumps
 const SPRINT_MULTIPLIER = 2.0 # how much sprinting multiplies the
 const MOUSE_SENSITIVITY = 0.004 
@@ -38,6 +38,8 @@ var lock_direction = false # does something with slide, magic, ask jeff
 var headmovement = Vector3() # where head is facing
 var speed = 0 # magnitude of impulse applied
 var max_speed = MAX_WALK_SPEED # max speed of player, which changes when crouching or sprinting
+var sprint_toggle = 1
+var cooldown = false
 
 # object variables
 #head and pivot are important but its kinda hard to explain, its pretty much another node inside the rigidbody that can act as the head, pivot adds another axis
@@ -56,6 +58,9 @@ var max_speed = MAX_WALK_SPEED # max speed of player, which changes when crouchi
 # animation player
 @onready var animationPlayer = $"../AnimationPlayer"
 # Called when the node enters the scene tree for the first time.
+@onready var timer = $"../Timer"
+@onready var cooldown_status = $"../GUI/Linear_x"
+@onready var times = $"../GUI/Linear_v"
 
 func _ready() -> void:
 	# so theres coollision logic
@@ -111,6 +116,7 @@ func _uncrouch_collision() -> bool: # same but for roof
 
 func _process(delta: float) -> void:
 	# setup
+	times.text = str(timer.get_time_left())
 	linear_damp = 7 if not slide_check else SLIDE_FRICTION # set friction here for some reason
 	label2.text = "Total absolute velocity= " + str(sqrt(pow(linear_velocity.x,2)+pow(linear_velocity.z,2))) # set 2d label
 	var v = sqrt(pow(linear_velocity.x,2)+pow(linear_velocity.y,2)+pow(linear_velocity.z,2)) # maths
@@ -120,7 +126,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("crouch"):
 		animationPlayer.play("crouch")
-		if abs(linear_velocity.x)+abs(linear_velocity.z)<SLIDE_POINT and not slide_check: # if the speed does not exceed a threshold and is not sliding, so you cant crouch while sliding
+		if abs(linear_velocity.x)+abs(linear_velocity.z)+abs(linear_velocity.y)<SLIDE_POINT and not slide_check: # if the speed does not exceed a threshold and is not sliding, so you cant crouch while sliding
 			label.text = "crouch down"
 			linear_velocity = Vector3(0,0,0) # so you don't maintain you momentum, so you cannot crouch and retain sprint speed
 			crouch_check = true
@@ -138,8 +144,9 @@ func _process(delta: float) -> void:
 			slide_check = false
 			label.text = "slide up"
 			
-	if Input.is_action_just_pressed("sprint"): # only activate when button first pressed or release, no need toggle
-		max_speed *= MAX_SPRINT_SPEED # sprint multiplies your max speed
+	if Input.is_action_just_pressed("sprint") and not crouch_check: # only activate when button first pressed or release, no need toggle
+		max_speed *= MAX_SPRINT_SPEED # sprint multiplies your max
+		sprint_toggle += 1
 	elif Input.is_action_just_released("sprint"):
 		max_speed /= MAX_SPRINT_SPEED
 		
@@ -155,12 +162,19 @@ func _process(delta: float) -> void:
 	if slide_check: # if sliding
 		input = Vector3.ZERO
 		if not lock_direction:   # jeff voodoo
+			cooldown_status.text = str(cooldown)
 			var forward_direction = head.transform.basis.z.normalized()
 			var side_direction = head.transform.basis.x.normalized()       
 			var slide_input = Vector3(last_input.x, 0, last_input.z).normalized()        
 			var slide_impulse = (forward_direction * slide_input.z + side_direction * slide_input.x) *SLIDE_FORCE
-			apply_central_impulse(slide_impulse)           
+			if not cooldown:
+				apply_central_impulse(slide_impulse)           
+				if not is_on_floor:
+					apply_central_impulse(slide_impulse*1.5)
 			lock_direction = true
+			if not cooldown:
+				timer.start(1)
+			cooldown = true
 	else: # if not sliding
 		input.x = Input.get_axis("left", "right") # get input from keyboard or joystick
 		input.z = Input.get_axis("forward", "back")
@@ -169,7 +183,13 @@ func _process(delta: float) -> void:
 		input = (head.transform.basis * input).normalized() # make the input face the head direction, where player is facing
 		
 		
-	if not is_on_floor: # if jumping, idk what happens
+	if not is_on_floor: # if jumping, idk what happens 
 		set_inertia(JUMP_VECTOR)
 	if abs(v) < max_speed: # if doesn't exceed speed, it will apply the same force.
 		apply_central_impulse(input*100*delta)
+
+
+func _on_timer_timeout() -> void:
+	timer.stop
+	cooldown = false
+	cooldown_status.text = str(cooldown)
