@@ -1,0 +1,149 @@
+[gd_scene load_steps=14 format=3 uid="uid://b4mkn4s3rtu35"]
+
+[ext_resource type="PackedScene" uid="uid://b8osjuwvm7hb3" path="res://assets/wHcH5nE (1).blend" id="1_5xwaj"]
+[ext_resource type="Script" path="res://assets/gun.gd" id="2_go1if"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhsaf"]
+albedo_color = Color(1, 1, 1, 0)
+roughness = 0.0
+refraction_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sx3ba"]
+
+[sub_resource type="Animation" id="Animation_8bh3f"]
+resource_name = "Shoot"
+length = 0.3
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.3, -0.115, -0.2), Vector3(0.3, -0.115, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8rt2b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.3, -0.115, -0.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s02mg"]
+_data = {
+"RESET": SubResource("Animation_8rt2b"),
+"Shoot": SubResource("Animation_8bh3f")
+}
+
+[sub_resource type="Animation" id="Animation_x30sh"]
+resource_name = "Shooting"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.3, -0.115, 0), Vector3(0.3, -0.115, -0.05), Vector3(0.3, -0.115, -0.05), Vector3(0.3, -0.115, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_obe82"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.3, -0.115, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kgyff"]
+_data = {
+"RESET": SubResource("Animation_obe82"),
+"Shooting": SubResource("Animation_x30sh")
+}
+
+[sub_resource type="Animation" id="Animation_aj1cf"]
+resource_name = "Idle"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.3, -0.115, 0), Vector3(0.3, -0.115, -0.2)]
+}
+
+[sub_resource type="Animation" id="Animation_nbel7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.3, -0.115, -0.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jyquj"]
+_data = {
+"Idle": SubResource("Animation_aj1cf"),
+"RESET": SubResource("Animation_nbel7")
+}
+
+[node name="Gun" instance=ExtResource("1_5xwaj")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.3, -0.115, -0.2)
+script = ExtResource("2_go1if")
+
+[node name="gun" parent="." index="1"]
+transform = Transform3D(0.167682, 0, 2.64698e-23, 0, 1.57141, 0, 2.64698e-23, 0, 0.167682, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rhsaf")
+
+[node name="WaterMesh" type="MeshInstance3D" parent="." index="2"]
+mesh = SubResource("CylinderMesh_sx3ba")
+
+[node name="Shoot" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_s02mg")
+}
+
+[node name="Shooting" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_kgyff")
+}
+
+[node name="Idle" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_jyquj")
+}
