@@ -148,7 +148,6 @@ func _process(delta: float) -> void:
 		if not is_shooting:
 			liquid.play("LiquidShoot")
 			shoot.play("Shoot")
-			print(shoot)
 			is_shooting = true
 		if !shoot.is_playing():
 			shooting.play("Shooting")

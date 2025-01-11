@@ -1,0 +1,164 @@
+[gd_scene load_steps=10 format=3 uid="uid://xbitpbigew08"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_sjwfk"]
+[ext_resource type="Texture2D" uid="uid://bdqgifmjrkuxc" path="res://assets/images/Title screen images/background.png" id="2_npbl7"]
+[ext_resource type="FontFile" uid="uid://da8augcwyljjt" path="res://assets/images/Title screen images/Minecraft.ttf" id="2_xf5hg"]
+[ext_resource type="Texture2D" uid="uid://xpqynprfmvnt" path="res://assets/images/Title screen images/Water drop.png" id="4_piuc0"]
+[ext_resource type="Texture2D" uid="uid://djg6l7y1a8n6v" path="res://assets/images/Title screen images/slimegun.png" id="5_m783v"]
+[ext_resource type="Texture2D" uid="uid://b7xryq2nmxwkq" path="res://assets/images/Title screen images/school logo.png" id="5_qq0go"]
+[ext_resource type="Texture2D" uid="uid://dk2kkks30sdor" path="res://assets/images/Title screen images/bucket.webp" id="6_uqycu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fp1ak"]
+texture = ExtResource("2_npbl7")
+modulate_color = Color(0.903598, 0.903598, 0.903598, 0.87451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ef1ak"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+
+[node name="Main menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("1_sjwfk")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+offset_left = -605.0
+offset_top = -24.0
+offset_right = -565.0
+offset_bottom = 16.0
+scale = Vector2(30.2033, 17.9643)
+theme_override_styles/panel = SubResource("StyleBoxTexture_fp1ak")
+
+[node name="droplets" type="Node2D" parent="Background"]
+position = Vector2(20.0309, 1.33598)
+scale = Vector2(0.0331089, 0.0556658)
+
+[node name="WaterDrop" type="Sprite2D" parent="Background/droplets"]
+position = Vector2(423, 228)
+scale = Vector2(0.178093, 0.178093)
+texture = ExtResource("4_piuc0")
+
+[node name="WaterDrop2" type="Sprite2D" parent="Background/droplets"]
+position = Vector2(423, 228)
+scale = Vector2(0.178093, 0.178093)
+texture = ExtResource("4_piuc0")
+
+[node name="WaterDrop3" type="Sprite2D" parent="Background/droplets"]
+position = Vector2(365, 202)
+scale = Vector2(0.178093, 0.178093)
+texture = ExtResource("4_piuc0")
+
+[node name="WaterDrop4" type="Sprite2D" parent="Background/droplets"]
+position = Vector2(373, 287)
+scale = Vector2(0.178093, 0.178093)
+texture = ExtResource("4_piuc0")
+
+[node name="WaterDrop5" type="Sprite2D" parent="Background/droplets"]
+position = Vector2(-411, 206)
+scale = Vector2(0.178093, 0.178093)
+texture = ExtResource("4_piuc0")
+
+[node name="WaterDrop6" type="Sprite2D" parent="Background/droplets"]
+position = Vector2(-360, 237)
+scale = Vector2(0.178093, 0.178093)
+texture = ExtResource("4_piuc0")
+
+[node name="WaterDrop7" type="Sprite2D" parent="Background/droplets"]
+position = Vector2(-426, 275)
+scale = Vector2(0.178093, 0.178093)
+texture = ExtResource("4_piuc0")
+
+[node name="Slimegun" type="Sprite2D" parent="Background"]
+position = Vector2(33.3076, 26.4413)
+rotation = -1.0472
+scale = Vector2(0.0109244, 0.0110245)
+skew = 0.497575
+texture = ExtResource("5_m783v")
+
+[node name="SchoolLogo" type="Sprite2D" parent="Background"]
+modulate = Color(0.682353, 0.682353, 0.682353, 0.709804)
+position = Vector2(2.81426, 4.89859)
+scale = Vector2(0.0016943, 0.00284861)
+texture = ExtResource("5_qq0go")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = 242.0
+offset_right = 74.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.50096, 1.50096)
+theme_override_constants/separation = 32
+
+[node name="play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_xf5hg")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_ef1ak")
+text = "Play"
+
+[node name="settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_xf5hg")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_ef1ak")
+text = "Settings"
+
+[node name="exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_xf5hg")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_ef1ak")
+text = "Exit
+"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.5
+offset_top = 119.0
+offset_right = 58.5
+offset_bottom = 142.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("2_xf5hg")
+theme_override_font_sizes/font_size = 90
+text = "MANNY'S WATERFUN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bucket" type="Sprite2D" parent="."]
+position = Vector2(-398, 469)
+rotation = -0.523598
+scale = Vector2(0.55984, 0.55984)
+texture = ExtResource("6_uqycu")
+
+[connection signal="pressed" from="VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/exit" to="." method="_on_exit_pressed"]
