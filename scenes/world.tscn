@@ -387,7 +387,7 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 1, 0)
 
 [node name="firstplayer" type="RigidBody3D" parent="."]
-transform = Transform3D(0.998831, 0, 0, 0, 0.998831, 0, 0, 0, 0.998831, -42.8028, 0.592249, -54.934)
+transform = Transform3D(0.998831, 0, 0, 0, 0.998831, 0, 0, 0, 0.998831, -42.8028, 0.592249, 27.4299)
 collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_nsb4f")
 lock_rotation = true
@@ -462,3 +462,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889945, -0.0274236)
 
 [node name="upboy" type="RayCast3D" parent="secondplayer"]
 transform = Transform3D(-0.999999, 0.00116938, 0, -0.00116938, -0.999999, 0, 0, 0, 1, -0.0438805, 1.42183, 0.00504364)
+
+[node name="StaminaBar" type="Label" parent="."]
+offset_top = 50.0
+offset_right = 40.0
+offset_bottom = 73.0
+text = "d"
+
+[node name="StaminaNum" type="Label" parent="."]
+offset_top = 77.0
+offset_right = 40.0
+offset_bottom = 100.0
+text = "100"
+
+[node name="SlideTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SlideTimer" to="firstplayer" method="_on_slide_timer_timeout"]

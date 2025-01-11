@@ -40,6 +40,9 @@ var speed = 0 # magnitude of impulse applied
 var max_speed = MAX_WALK_SPEED # max speed of player, which changes when crouching or sprinting
 var sprint_toggle = 0
 var multiplier = 1
+var slide_cooldown = false
+var stamina = 100
+var paused = true
 
 # object variables
 #head and pivot are important but its kinda hard to explain, its pretty much another node inside the rigidbody that can act as the head, pivot adds another axis
@@ -69,6 +72,9 @@ var health = 100
 @onready var liquid = $Head/Camera3D/Gun/gun/WaterMesh/MeshInstance3D/LiquidShoot
 @onready var liquid_shooting = $Head/Camera3D/Gun/gun/WaterMesh/MeshInstance3D/LiquidShooting
 @onready var liquid_finish = $Head/Camera3D/Gun/gun/WaterMesh/MeshInstance3D/LiquidFinish
+@onready var slide_timer = $"../SlideTimer"
+@onready var stamina_bar = $"../StaminaBar"
+@onready var stamina_label = $"../StaminaNum"
 var is_shooting = false
 #Bullets
 var bullet = load("res://scenes/bullet.tscn")
@@ -187,6 +193,11 @@ func _process(delta: float) -> void:
 			
 	if Input.is_action_just_pressed("sprint"): # only activate when button first pressed or release, no need toggle
 		sprint_toggle = 1-sprint_toggle
+		if sprint_toggle == 1:
+			if paused == true:
+				paused = false
+		else:
+			paused = true
 		
 	if Input.is_action_just_pressed("thirdperson"):
 		OtherCamera.current =  camera.current # if current is true, the camera with true will be the one you see through
@@ -194,7 +205,12 @@ func _process(delta: float) -> void:
 	
 			
 	if Input.is_action_just_pressed("jump") and is_on_floor:
-		apply_central_impulse(Vector3(input.x,1.0*JUMP_HEIGHT,input.z))
+		if slide_check:
+			slide_check = false
+			label.text = "slide up"
+			apply_central_impulse(Vector3(1.2*input.x,1.3*JUMP_HEIGHT,1.2*input.z))
+		else:
+			apply_central_impulse(Vector3(input.x,1.0*JUMP_HEIGHT,input.z))
 	elif not is_on_floor:
 			linear_damp = 0.5
 			set_gravity_scale(2)
@@ -207,8 +223,16 @@ func _process(delta: float) -> void:
 			var side_direction = head.transform.basis.x.normalized()       
 			var slide_input = Vector3(last_input.x, 0, last_input.z).normalized()        
 			var slide_impulse = (forward_direction * slide_input.z + side_direction * slide_input.x) *SLIDE_FORCE
-			apply_central_impulse(slide_impulse)           
+			if not slide_cooldown and stamina >= 10:
+				apply_central_impulse(slide_impulse)
+				stamina -= 10
+				if not is_on_floor and stamina >= 20:
+					apply_central_impulse(slide_impulse*2)
+					stamina -= 20
 			lock_direction = true
+			if not slide_cooldown:
+				slide_timer.start(1)
+			slide_cooldown = true
 	else: # if not sliding
 		input.x = Input.get_axis("left", "right") # get input from keyboard or joystick
 		input.z = Input.get_axis("forward", "back")
@@ -223,5 +247,19 @@ func _process(delta: float) -> void:
 		multiplier = 1
 	
 	if abs(v) < max_speed*multiplier: # if doesn't exceed speed, it will apply the same force.
-		apply_central_impulse(input*100*delta)
-		
+		apply_central_impulse(input*100*delta)	
+	
+	if paused == true and stamina <= 100:
+		stamina += delta*15
+	if paused == true and stamina >= 100:
+		stamina = 100
+	if paused ==false and not slide_check:
+		stamina -= delta*15
+	stamina_label.text = str(stamina)
+	if stamina <= 0:
+		sprint_toggle = 0
+		paused = true
+
+func _on_slide_timer_timeout() -> void:
+	slide_timer.stop
+	slide_cooldown = false
