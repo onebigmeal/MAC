@@ -1,0 +1,132 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5lbgaiffor37"]
+
+[ext_resource type="Script" path="res://scripts/settings.gd" id="1_6n6k4"]
+[ext_resource type="Texture2D" uid="uid://bdqgifmjrkuxc" path="res://assets/images/Title screen images/background.png" id="1_uucq8"]
+[ext_resource type="Texture2D" uid="uid://b7xryq2nmxwkq" path="res://assets/images/Title screen images/school logo.png" id="4_qre2d"]
+[ext_resource type="FontFile" uid="uid://da8augcwyljjt" path="res://assets/images/Title screen images/Minecraft.ttf" id="6_g213m"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yvexc"]
+texture = ExtResource("1_uucq8")
+modulate_color = Color(0.903598, 0.903598, 0.903598, 0.87451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thrid"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6n6k4")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_yvexc")
+
+[node name="SchoolLogo" type="Sprite2D" parent="Background"]
+modulate = Color(0.682353, 0.682353, 0.682353, 0.709804)
+position = Vector2(70, 90)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("4_qre2d")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -190.5
+offset_right = 190.5
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_g213m")
+theme_override_font_sizes/font_size = 100
+text = "Settings"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -301.0
+offset_top = 125.0
+offset_right = 299.0
+offset_bottom = 625.0
+grow_horizontal = 2
+scale = Vector2(1, 0.963424)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Voltext" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_g213m")
+theme_override_font_sizes/font_size = 25
+text = "Volume"
+
+[node name="Volume" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+min_value = -50.0
+max_value = 50.0
+
+[node name="Mute" type="CheckBox" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_g213m")
+text = "Mute"
+icon_alignment = 2
+
+[node name="Csens" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_g213m")
+theme_override_font_sizes/font_size = 25
+text = "Controller sensitivity"
+
+[node name="Controller_Sensitivity" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+max_value = 0.1
+step = 0.001
+
+[node name="fov" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_g213m")
+theme_override_font_sizes/font_size = 25
+text = "FOV
+"
+
+[node name="FOV" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="exit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_g213m")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_thrid")
+text = "|            Return            |
+"
+
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/Mute" to="." method="_on_mute_toggled"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Controller_Sensitivity" to="." method="_on_mouse_sensitivity_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/FOV" to="." method="_on_fov_value_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/exit" to="." method="_on_exit_pressed"]

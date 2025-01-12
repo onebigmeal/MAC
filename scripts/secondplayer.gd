@@ -33,6 +33,7 @@ var lock_direction = false
 var test3 = Vector3.ZERO
 var last_input = Vector3.ZERO
 var headmovement = Vector3()
+var dead = false
 @onready var head = $Head
 @onready var camera = $Head/Camera3D2
 @onready var coyote = $CoyoteTimer
@@ -78,94 +79,13 @@ func _uncrouch_collision() -> bool:
 		return true
 	return false
 
+func hit(damage):
+	if not dead:
+		if Global.R_health <= 0:
+			dead = true
+			Global.R_health = 0.0
+		else:
+			Global.R_health  -= damage
+		
 func _process(delta: float) -> void:
-	headmovement.y = Input.get_axis("headup2","headdown2")
-	headmovement.x = Input.get_axis("headleft2","headright2")
-	if headmovement != Vector3.ZERO:
-		if othercamera.current == true:
-			head.rotate_y(-headmovement.x * CONTROLLER_SENSITIVITY)
-			pivot.rotate_x(-headmovement.y * CONTROLLER_SENSITIVITY)
-			pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-		else:
-			head.rotate_y(-headmovement.x * CONTROLLER_SENSITIVITY)
-			camera.rotate_x(-headmovement.y * CONTROLLER_SENSITIVITY)
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-			
-	label2.text = "Total absolute velocity= " + str(abs(linear_velocity.x)+abs(linear_velocity.z))
-	label3.text = "velocity x = " + str(linear_velocity.x)
-	label4.text = "velocity z = " + str(linear_velocity.z)
-	var input:= Vector3.ZERO
-# does not work
-	if not slide_check:
-		input.x = Input.get_axis("left2", "right2")
-		input.z = Input.get_axis("forward2", "back2")
-		test3 = input
-		linear_damp = 2
-	if slide_check:
-		linear_damp = 0.1
-		if not lock_direction:
-			last_input = input
-			fixed_direction = head.transform.basis
-			#print((fixed_direction * Vector3(10, 0, 10)).normalized())
-			apply_central_impulse(last_input * Vector3(10, 0, 10))
-		input = (fixed_direction * input).normalized()
-		lock_direction = true
-	else:
-		lock_direction = false
-		input = (head.transform.basis * input).normalized()
-	var v = sqrt(pow(linear_velocity.x,2)+pow(linear_velocity.y,2)+pow(linear_velocity.z,2))	
-	is_on_floor = _touching_floor()
-	is_roofed = _uncrouch_collision()
-	if Input.is_action_just_pressed("jump2") and is_on_floor:
-		apply_central_impulse(Vector3(input.x,1.0*JUMP_HEIGHT,input.z))
-	elif abs(v) < MAX_WALK_SPEED:
-		if not is_on_floor:
-			if crouch == -1:
-				linear_damp = 0.5
-			set_inertia(jump_vector)
-			set_gravity_scale(1.5)
-			apply_central_impulse(input*AIR_SPEED*delta)
-		else:
-			linear_damp = 5
-			if crouch:
-				apply_central_impulse(input*CROUCH_SPEED*delta)
-			else:
-				apply_central_impulse(input*WALK_SPEED*delta)
-	else: 
-		pass
-	#crouching below
-	if Input.is_action_just_pressed("crouch2"):
-		crouch = 1
-	elif Input.is_action_just_released("crouch2"):
-		crouch = -1
-	elif crouch == 1 and abs(linear_velocity.x)+abs(linear_velocity.z)<10 and not slide_check: 
-		crouch = 0
-		$"../../../../../AnimationPlayer".self.play("crouch")
-		label.text = "crouch down"
-		linear_damp = 10
-		linear_velocity = Vector3(0,0,0)
-		crouch_check = true
-	if crouch == -1 and not is_roofed and abs(linear_velocity.x)+abs(linear_velocity.z)<10 and not slide_check:
-		crouch = 0
-		$"../../../../../AnimationPlayer".play_backwards("crouch")
-		label.text = "crouch up"
-		set_gravity_scale(1)
-		linear_damp = 5
-		crouch_check = false
-	elif crouch == 1 and abs(linear_velocity.x)+abs(linear_velocity.z)>10 and not crouch_check: 
-		crouch = 0
-		slide_check = true
-		$"../../../../../AnimationPlayer".play("crouch")
-		label.text = "slide down"
-	elif crouch == -1 and not is_roofed and not crouch_check:
-		crouch = 0
-		slide_check = false
-		$"../../../../../AnimationPlayer".play_backwards("crouch")
-		label.text = "slide up"
-	if Input.is_action_just_pressed("thirdperson2"):
-		if not thirdperson:
-			thirdperson = true
-			othercamera.current = true
-		else:
-			thirdperson = false
-			camera.current = true
+	pass

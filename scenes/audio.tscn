@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://unu3nred1uh3"]
+
+[ext_resource type="Script" path="res://scripts/audio.gd" id="1_tvion"]
+[ext_resource type="AudioStream" uid="uid://br6xr3wssgkxk" path="res://assets/audio/popcorn castle.mp3" id="2_g5elc"]
+
+[node name="Audio" type="Node"]
+script = ExtResource("1_tvion")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_g5elc")
+autoplay = true
