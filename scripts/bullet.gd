@@ -17,7 +17,8 @@ func _process(delta: float) -> void:
 	ray.force_raycast_update()
 	if ray.is_colliding():
 		if ray.get_collider().name == "secondplayer" or ray.get_collider().name == "firstplayer":
-			ray.get_collider().hit(0.2)
+			$AudioStreamPlayer3D.play()
+			ray.get_collider().hit(2)
 		await get_tree().create_timer(1.0).timeout
 		queue_free()
 

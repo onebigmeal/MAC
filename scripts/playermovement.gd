@@ -24,6 +24,8 @@ var multiplier = 1
 var slide_cooldown = false
 var paused = true
 var dead = false
+var scope = false
+var tempscope = 0
 
 # object variables
 #head and pivot are important but its kinda hard to explain, its pretty much another node inside the rigidbody that can act as the head, pivot adds another axis
@@ -240,4 +242,18 @@ func _process(delta: float) -> void:
 		paused = true
 	
 	#fov code
-	camera.fov = lerp(camera.fov, target_fov, delta*4)
+	if not scope:
+		camera.fov = lerp(camera.fov, target_fov, delta*4)
+	
+	if Input.is_action_just_pressed("rightclick"):
+		scope = true
+		tempscope = camera.fov
+		Global.CONTROLLER_SENSITIVITY -= (0.03/2)
+		Global.MOUSE_SENSITIVITY -= (0.004/2)
+	if Input.is_action_just_released("rightclick"):
+		scope = false
+		Global.CONTROLLER_SENSITIVITY += (0.03/2)
+		Global.MOUSE_SENSITIVITY +=  (0.004/2)
+	if scope and camera.fov >= tempscope - 20:
+		camera.fov -= 2
+		

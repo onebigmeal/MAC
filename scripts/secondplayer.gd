@@ -81,6 +81,7 @@ func _uncrouch_collision() -> bool:
 
 func hit(damage):
 	if not dead:
+		print(Global.R_health)
 		if Global.R_health <= 0:
 			dead = true
 			Global.R_health = 0.0
