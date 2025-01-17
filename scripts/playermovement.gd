@@ -26,6 +26,7 @@ var paused = true
 var dead = false
 var scope = false
 var tempscope = 0
+var weapon = 1
 
 # object variables
 #head and pivot are important but its kinda hard to explain, its pretty much another node inside the rigidbody that can act as the head, pivot adds another axis
@@ -45,7 +46,8 @@ var tempscope = 0
 @onready var animationPlayer = $"../AnimationPlayer"
 # Called when the node enters the scene tree for the first time.
 
-
+@onready var sword = $Head/Camera3D/Sword
+@onready var gun = $Head/Camera3D/Gun
 @onready var shoot_particles = $Head/Camera3D/Gun/GPUParticles3D
 @onready var gun_barrel = $Head/Camera3D/Gun/RayCast3D
 @onready var shoot = $Head/Camera3D/Gun/Shoot
@@ -130,7 +132,7 @@ func _process(delta: float) -> void:
 	is_roofed = _uncrouch_collision()
 	var target_fov = Global.BASE_FOV + Global.FOV_CHANGE*multiplier
 	# input
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_pressed("shoot") and weapon == 1:
 		shoot_particles.emitting = true
 		if not is_shooting:
 			liquid.play("LiquidShoot")
@@ -245,15 +247,32 @@ func _process(delta: float) -> void:
 	if not scope:
 		camera.fov = lerp(camera.fov, target_fov, delta*4)
 	
-	if Input.is_action_just_pressed("rightclick"):
+	if Input.is_action_just_pressed("rightclick") and weapon == 1:
 		scope = true
 		tempscope = camera.fov
 		Global.CONTROLLER_SENSITIVITY -= (0.03/2)
 		Global.MOUSE_SENSITIVITY -= (0.004/2)
-	if Input.is_action_just_released("rightclick"):
+	if Input.is_action_just_released("rightclick") and scope == true:
 		scope = false
 		Global.CONTROLLER_SENSITIVITY += (0.03/2)
 		Global.MOUSE_SENSITIVITY +=  (0.004/2)
 	if scope and camera.fov >= tempscope - 20:
 		camera.fov -= 2
+		
+	if Input.is_action_just_pressed("scrolldown") and weapon < 2:
+		weapon += 1
+		if weapon == 1:
+			gun.visible = true
+			sword.visible = false
+		if weapon == 2:
+			sword.visible = true
+			gun.visible = false
+	if Input.is_action_just_pressed("scrollup") and weapon > 1:
+		weapon -= 1
+		if weapon == 1:
+			gun.visible = true
+			sword.visible = false
+		if weapon == 2:
+			sword.visible = true
+			gun.visible = false
 		

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb4ogvx0xtll5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dhpfh"]
+radius = 0.1
+height = 1.0
+
+[node name="Sword" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("CapsuleMesh_dhpfh")
+skeleton = NodePath("")

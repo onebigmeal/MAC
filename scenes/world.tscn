@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cbvnws21jha45"]
+[gd_scene load_steps=33 format=3 uid="uid://cbvnws21jha45"]
 
 [ext_resource type="PackedScene" uid="uid://ba1wtu47ipvgu" path="res://scenes/pause_screen.tscn" id="1_dwm8j"]
 [ext_resource type="Texture2D" uid="uid://bbipo2oa3urmv" path="res://assets/images/map.png" id="1_xukio"]
@@ -14,6 +14,7 @@
 [ext_resource type="MeshLibrary" uid="uid://bveehg5vnww2i" path="res://meshlib/vision_blockers.tres" id="8_sg082"]
 [ext_resource type="MeshLibrary" uid="uid://braa8y5xv3ybh" path="res://meshlib/tiles.tres" id="9_31vwk"]
 [ext_resource type="Texture2D" uid="uid://b1vs5ng6nk1sh" path="res://assets/images/GUI images/bluebar.png" id="9_cp50t"]
+[ext_resource type="PackedScene" uid="uid://bb4ogvx0xtll5" path="res://scenes/sword.tscn" id="12_dq13t"]
 [ext_resource type="Script" path="res://scripts/secondplayer.gd" id="12_mwr16"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_diidr"]
@@ -512,6 +513,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 
 [node name="Gun" parent="firstplayer/Head/Camera3D" instance=ExtResource("6_a2o81")]
 transform = Transform3D(-4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Sword" parent="firstplayer/Head/Camera3D" instance=ExtResource("12_dq13t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563919, -0.376196, -0.997698)
+visible = false
 
 [node name="pivot" type="Node3D" parent="firstplayer/Head"]
 
