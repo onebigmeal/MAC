@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cbvnws21jha45"]
+[gd_scene load_steps=34 format=3 uid="uid://cbvnws21jha45"]
 
 [ext_resource type="PackedScene" uid="uid://ba1wtu47ipvgu" path="res://scenes/pause_screen.tscn" id="1_dwm8j"]
 [ext_resource type="Texture2D" uid="uid://bbipo2oa3urmv" path="res://assets/images/map.png" id="1_xukio"]
@@ -125,6 +125,30 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector3(1, 1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("firstplayer/Head/Camera3D/Sword:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("firstplayer/Head/Camera3D/Sword:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.563919, -0.376196, -0.997698)]
+}
 
 [sub_resource type="Animation" id="Animation_0h2cp"]
 resource_name = "crouch"
@@ -202,9 +226,38 @@ tracks/5/keys = {
 "values": [Vector3(1, 1, 1), Vector3(1, 0.5, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_oj524"]
+resource_name = "SwordHit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("firstplayer/Head/Camera3D/Sword:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.785398, 0, 0.785398), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("firstplayer/Head/Camera3D/Sword:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.563919, -0.376196, -0.997698), Vector3(-0.7, -1, -0.998), Vector3(0.563919, -0.376196, -0.997698)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bk5mk"]
 _data = {
 "RESET": SubResource("Animation_g6n0p"),
+"SwordHit": SubResource("Animation_oj524"),
 "crouch": SubResource("Animation_0h2cp")
 }
 
