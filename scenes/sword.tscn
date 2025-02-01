@@ -1,13 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bb4ogvx0xtll5"]
+[gd_scene load_steps=4 format=3 uid="uid://bb4ogvx0xtll5"]
+
+[ext_resource type="Script" path="res://scenes/static_body_3d.gd" id="1_v8jql"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dhpfh"]
 radius = 0.1
-height = 1.0
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig8ei"]
+radius = 0.15
+height = 1.7
 
 [node name="Sword" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("1_v8jql")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.363763, 0)
 mesh = SubResource("CapsuleMesh_dhpfh")
 skeleton = NodePath("")
+
+[node name="Hitbox" type="Area3D" parent="StaticBody3D"]
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.405632, 0)
+shape = SubResource("CapsuleShape3D_ig8ei")

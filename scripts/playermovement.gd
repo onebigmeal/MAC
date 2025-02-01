@@ -57,6 +57,8 @@ var weapon = 1
 @onready var liquid_shooting = $Head/Camera3D/Gun/gun/WaterMesh/MeshInstance3D/LiquidShooting
 @onready var liquid_finish = $Head/Camera3D/Gun/gun/WaterMesh/MeshInstance3D/LiquidFinish
 @onready var slide_timer = $"SlideTimer"
+@onready var sword_hitbox = $StaticBody3D/Hitbox
+
 var is_shooting = false
 #Bullets
 var bullet = load("res://scenes/bullet.tscn")
@@ -131,6 +133,12 @@ func _process(delta: float) -> void:
 	is_on_floor = _touching_floor()
 	is_roofed = _uncrouch_collision()
 	var target_fov = Global.BASE_FOV + Global.FOV_CHANGE*multiplier
+	
+	if animationPlayer.name == "hit":
+		sword_hitbox.monitoring = true
+	else:
+		sword_hitbox.monitoring = false
+	
 	# input
 	if Input.is_action_pressed("shoot") and weapon == 1:
 		shoot_particles.emitting = true
@@ -152,6 +160,9 @@ func _process(delta: float) -> void:
 		liquid_finish.play("LiquidFinish")
 		idle.play("Idle")
 		is_shooting = false
+		
+	if Input.is_action_pressed("shoot") and weapon == 2:
+		animationPlayer.play("hit")
 		
 	if Input.is_action_just_pressed("crouch"):
 		animationPlayer.play("crouch")
