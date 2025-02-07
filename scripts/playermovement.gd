@@ -42,6 +42,7 @@ var weapon = 1
 # 2d debugging labels
 @onready var label = $"../GUI/crouch_status"
 @onready var label2 = $"../GUI/total_linear_velocity"
+@onready var label3 = $"../hitbox_monitor"
 # animation player
 @onready var animationPlayer = $"../AnimationPlayer"
 # Called when the node enters the scene tree for the first time.
@@ -57,7 +58,7 @@ var weapon = 1
 @onready var liquid_shooting = $Head/Camera3D/Gun/gun/WaterMesh/MeshInstance3D/LiquidShooting
 @onready var liquid_finish = $Head/Camera3D/Gun/gun/WaterMesh/MeshInstance3D/LiquidFinish
 @onready var slide_timer = $"SlideTimer"
-@onready var sword_hitbox = $StaticBody3D/Hitbox
+@onready var sword_hitbox = $Head/Camera3D/Sword/StaticBody3D/Hitbox
 
 var is_shooting = false
 #Bullets
@@ -127,6 +128,10 @@ func _uncrouch_collision() -> bool: # same but for roof
 
 func _process(delta: float) -> void:
 	# setup
+	if sword_hitbox.monitoring == true:
+		label3.text = "True"
+	else:
+		label3.text = "False"
 	linear_damp = 5 if not slide_check else Global.SLIDE_FRICTION # set friction here for some reason
 	label2.text = "Total absolute velocity= " + str(sqrt(pow(linear_velocity.x,2)+pow(linear_velocity.z,2))) # set 2d label
 	var v = sqrt(pow(linear_velocity.x,2)+pow(linear_velocity.y,2)+pow(linear_velocity.z,2)) # maths
@@ -134,7 +139,7 @@ func _process(delta: float) -> void:
 	is_roofed = _uncrouch_collision()
 	var target_fov = Global.BASE_FOV + Global.FOV_CHANGE*multiplier
 	
-	if animationPlayer.name == "hit":
+	if animationPlayer.current_animation == "hit":
 		sword_hitbox.monitoring = true
 	else:
 		sword_hitbox.monitoring = false

@@ -684,4 +684,11 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 8, 0)
 
+[node name="hitbox_monitor" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 53.0
+offset_right = 42.0
+offset_bottom = 76.0
+text = "Hitbox state"
+
 [connection signal="timeout" from="firstplayer/SlideTimer" to="firstplayer" method="_on_slide_timer_timeout"]
