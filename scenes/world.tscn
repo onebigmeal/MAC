@@ -573,7 +573,6 @@ libraries = {
 
 [node name="firstplayer" type="RigidBody3D" parent="."]
 transform = Transform3D(0.998831, 0, 0, 0, 0.998831, 0, 0, 0, 0.998831, -42.8028, 0.592249, 15.0522)
-collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_nsb4f")
 lock_rotation = true
 script = ExtResource("5_dama6")
@@ -598,7 +597,6 @@ transform = Transform3D(-4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0, 0.1, 
 
 [node name="Sword" parent="firstplayer/Head/Camera3D" instance=ExtResource("12_dq13t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563919, -0.376196, -0.997698)
-visible = false
 
 [node name="pivot" type="Node3D" parent="firstplayer/Head"]
 
@@ -617,8 +615,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889945, -0.0274236)
 transform = Transform3D(-0.999999, 0.00116938, 0, -0.00116938, -0.999999, 0, 0, 0, 1, -0.0438805, 1.42183, 0.00504364)
 
 [node name="secondplayer" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2947, 3.21197, 30.1692)
-collision_layer = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3555, 3.21197, 30.1851)
 physics_material_override = SubResource("PhysicsMaterial_nsb4f")
 lock_rotation = true
 script = ExtResource("12_mwr16")
@@ -691,4 +688,7 @@ offset_right = 42.0
 offset_bottom = 76.0
 text = "Hitbox state"
 
+[connection signal="apply_damage" from="firstplayer/Head/Camera3D/Sword/StaticBody3D" to="secondplayer" method="_on_static_body_3d_apply_damage"]
 [connection signal="timeout" from="firstplayer/SlideTimer" to="firstplayer" method="_on_slide_timer_timeout"]
+
+[editable path="firstplayer/Head/Camera3D/Sword"]

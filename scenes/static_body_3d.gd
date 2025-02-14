@@ -1,6 +1,7 @@
 extends StaticBody3D
 @onready var hitbox = $Hitbox
 @onready var hitcooldown = false
+signal apply_damage
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -11,14 +12,13 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_hitbox_area_entered(area: Area3D) -> void:
-	print("uncooler")
-	if hitbox.monitoring == true:
-		print("uncool")
-		if area.name == "secondplayer":
-			print("cool")
-		hitcooldown = true
+func _on_hitbox_body_entered(body: Node3D) -> void:
+	if hitbox.monitoring == true and hitcooldown == false:
+		if body.name == "secondplayer":
+			apply_damage.emit()
+			hitcooldown = true
+		hitcooldown = false
 
 
-func _on_hitbox_area_exited(area: Area3D) -> void:
+func _on_hitbox_body_exited(body: Node3D) -> void:
 	pass # Replace with function body.

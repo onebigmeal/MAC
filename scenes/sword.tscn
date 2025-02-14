@@ -17,6 +17,7 @@ height = 0.001
 [node name="Sword" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
 script = ExtResource("1_v8jql")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
@@ -34,5 +35,5 @@ shape = SubResource("CapsuleShape3D_ig8ei")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("CapsuleShape3D_5iluf")
 
-[connection signal="area_entered" from="StaticBody3D/Hitbox" to="StaticBody3D" method="_on_hitbox_area_entered"]
-[connection signal="area_exited" from="StaticBody3D/Hitbox" to="StaticBody3D" method="_on_hitbox_area_exited"]
+[connection signal="body_entered" from="StaticBody3D/Hitbox" to="StaticBody3D" method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="StaticBody3D/Hitbox" to="StaticBody3D" method="_on_hitbox_body_exited"]

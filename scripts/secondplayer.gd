@@ -90,3 +90,6 @@ func hit(damage):
 		
 func _process(delta: float) -> void:
 	pass
+
+func _on_static_body_3d_apply_damage() -> void:
+	hit(10)
