@@ -597,6 +597,10 @@ transform = Transform3D(-4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0, 0.1, 
 
 [node name="Sword" parent="firstplayer/Head/Camera3D" instance=ExtResource("12_dq13t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563919, -0.376196, -0.997698)
+visible = false
+
+[node name="HitTimer" parent="firstplayer/Head/Camera3D/Sword" index="1"]
+wait_time = 1.0
 
 [node name="pivot" type="Node3D" parent="firstplayer/Head"]
 
@@ -689,6 +693,7 @@ offset_bottom = 76.0
 text = "Hitbox state"
 
 [connection signal="apply_damage" from="firstplayer/Head/Camera3D/Sword/StaticBody3D" to="secondplayer" method="_on_static_body_3d_apply_damage"]
+[connection signal="timeout" from="firstplayer/Head/Camera3D/Sword/HitTimer" to="firstplayer" method="_on_hit_timer_timeout"]
 [connection signal="timeout" from="firstplayer/SlideTimer" to="firstplayer" method="_on_slide_timer_timeout"]
 
 [editable path="firstplayer/Head/Camera3D/Sword"]

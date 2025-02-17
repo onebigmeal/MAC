@@ -27,6 +27,7 @@ var dead = false
 var scope = false
 var tempscope = 0
 var weapon = 1
+var hitcooldown = false
 
 # object variables
 #head and pivot are important but its kinda hard to explain, its pretty much another node inside the rigidbody that can act as the head, pivot adds another axis
@@ -59,6 +60,7 @@ var weapon = 1
 @onready var liquid_finish = $Head/Camera3D/Gun/gun/WaterMesh/MeshInstance3D/LiquidFinish
 @onready var slide_timer = $"SlideTimer"
 @onready var sword_hitbox = $Head/Camera3D/Sword/StaticBody3D/Hitbox
+@onready var hit_timer = $Head/Camera3D/Sword/HitTimer
 
 var is_shooting = false
 #Bullets
@@ -166,8 +168,10 @@ func _process(delta: float) -> void:
 		idle.play("Idle")
 		is_shooting = false
 		
-	if Input.is_action_pressed("shoot") and weapon == 2:
+	if Input.is_action_pressed("shoot") and weapon == 2 and hitcooldown == false:
 		animationPlayer.play("hit")
+		hitcooldown = true
+		hit_timer.start(1)
 		
 	if Input.is_action_just_pressed("crouch"):
 		animationPlayer.play("crouch")
@@ -269,9 +273,9 @@ func _process(delta: float) -> void:
 		Global.CONTROLLER_SENSITIVITY -= (0.03/2)
 		Global.MOUSE_SENSITIVITY -= (0.004/2)
 	if Input.is_action_just_released("rightclick") and scope == true:
-		scope = false
 		Global.CONTROLLER_SENSITIVITY += (0.03/2)
 		Global.MOUSE_SENSITIVITY +=  (0.004/2)
+		scope = false
 	if scope and camera.fov >= tempscope - 20:
 		camera.fov -= 2
 		
@@ -292,3 +296,7 @@ func _process(delta: float) -> void:
 			sword.visible = true
 			gun.visible = false
 		
+
+
+func _on_hit_timer_timeout() -> void:
+	hitcooldown = false

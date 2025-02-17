@@ -18,7 +18,3 @@ func _on_hitbox_body_entered(body: Node3D) -> void:
 			apply_damage.emit()
 			hitcooldown = true
 		hitcooldown = false
-
-
-func _on_hitbox_body_exited(body: Node3D) -> void:
-	pass # Replace with function body.
