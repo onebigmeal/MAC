@@ -24,6 +24,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_unytt")
 
 [node name="Bullet Raycast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -0.6)
+hit_from_inside = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0

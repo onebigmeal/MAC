@@ -28,6 +28,7 @@ var scope = false
 var tempscope = 0
 var weapon = 1
 var hitcooldown = false
+var fov = 1
 
 # object variables
 #head and pivot are important but its kinda hard to explain, its pretty much another node inside the rigidbody that can act as the head, pivot adds another axis
@@ -263,6 +264,7 @@ func _process(delta: float) -> void:
 		sprint_toggle = 0
 		paused = true
 	
+	fov = lerp(camera.fov, target_fov, delta*4)
 	#fov code
 	if not scope:
 		camera.fov = lerp(camera.fov, target_fov, delta*4)
@@ -276,7 +278,7 @@ func _process(delta: float) -> void:
 		Global.CONTROLLER_SENSITIVITY += (0.03/2)
 		Global.MOUSE_SENSITIVITY +=  (0.004/2)
 		scope = false
-	if scope and camera.fov >= tempscope - 20:
+	if scope and camera.fov >= fov -2	:
 		camera.fov -= 2
 		
 	if Input.is_action_just_pressed("scrolldown") and weapon < 2:

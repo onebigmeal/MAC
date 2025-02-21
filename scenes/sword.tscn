@@ -1,10 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bb4ogvx0xtll5"]
 
 [ext_resource type="Script" path="res://scenes/static_body_3d.gd" id="1_v8jql"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_dhpfh"]
-radius = 0.1
-height = 1.5
+[ext_resource type="PackedScene" uid="uid://nhg6y1n73ur7" path="res://assets/balloonsword.blend" id="2_jekyq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig8ei"]
 radius = 0.15
@@ -20,16 +17,11 @@ height = 0.001
 collision_layer = 2
 script = ExtResource("1_v8jql")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.363763, 0)
-mesh = SubResource("CapsuleMesh_dhpfh")
-skeleton = NodePath("")
-
 [node name="Hitbox" type="Area3D" parent="StaticBody3D"]
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.405632, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500873, 0)
 shape = SubResource("CapsuleShape3D_ig8ei")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
@@ -37,6 +29,9 @@ shape = SubResource("CapsuleShape3D_5iluf")
 
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="balloonsword" parent="." instance=ExtResource("2_jekyq")]
+transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 0, 0.0901226, 0)
 
 [connection signal="body_entered" from="StaticBody3D/Hitbox" to="StaticBody3D" method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="StaticBody3D/Hitbox" to="StaticBody3D" method="_on_hitbox_body_exited"]

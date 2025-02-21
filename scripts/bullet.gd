@@ -1,6 +1,6 @@
 extends Node3D
 
-const SPEED = 150
+const SPEED = 500
 
 @onready var mesh = $MeshInstance3D
 @onready var ray = $"Bullet Raycast"
@@ -16,6 +16,7 @@ func _process(delta: float) -> void:
 	position += transform.basis * Vector3(0, 0, -SPEED) * delta
 	ray.force_raycast_update()
 	if ray.is_colliding():
+		print (ray.get_collider().name)
 		if ray.get_collider().name == "secondplayer" or ray.get_collider().name == "firstplayer":
 			$AudioStreamPlayer3D.play()
 			ray.get_collider().hit(2)
