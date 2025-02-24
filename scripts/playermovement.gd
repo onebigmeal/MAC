@@ -70,6 +70,7 @@ var instance
 
 func _ready() -> void:
 	# so theres coollision logic
+	sword.position = Vector3(1,-0.376,-0.998)
 	self.set_contact_monitor(true)
 	self.set_max_contacts_reported(999)
 	# idk just do it
